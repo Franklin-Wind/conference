@@ -31,11 +31,16 @@ public class Interaction {
         return js;
     }
 
-    public  JSONObject ConData(String conference) {
+    public  JSONObject ConData(String name,String content,String place,String type,String time) {
 
         JSONObject js=new JSONObject();
         try {
-            js.put("conference_content", conference);
+            js.put("name", name);
+            js.put("conference_content",content);
+            js.put("conference_place",place);
+            js.put("conference_place",place);
+            js.put("type",type);
+            js.put("conference_time",time);
         } catch (JSONException e) {
             e.printStackTrace();
         }

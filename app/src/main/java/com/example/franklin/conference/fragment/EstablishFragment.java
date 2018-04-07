@@ -1,16 +1,18 @@
 package com.example.franklin.conference.fragment;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +22,7 @@ import org.json.JSONObject;
 import com.example.franklin.conference.App.MyApplication;
 import com.example.franklin.conference.Data.Interaction;
 import com.example.franklin.conference.R;
-import com.example.franklin.conference.ui.time;
-import com.example.franklin.conference.util.HttpGet;
 import com.example.franklin.conference.util.HttpPost;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
 
 import static com.google.android.gms.internal.zzagz.runOnUiThread;
 
@@ -56,14 +54,16 @@ public class EstablishFragment extends Fragment {
 
     private EditText mconference_edit_name;
     private EditText mconference_edit_container;
-    private EditText mconference_edit_type;
-    private EditText mconference_edit_place;
+    private Spinner mconference_edit_type;
+    private Spinner mconference_edit_place;
     private TextView mconference_edit_time;
+    private CheckBox checkBox;
+    boolean is_open;
 
     private Button mCreate;
     private String result ="";
-
-
+    private String typeID="1";
+    private String placeID="1";
 
 
 
@@ -107,9 +107,10 @@ public class EstablishFragment extends Fragment {
 
         mconference_edit_name = (EditText) view.findViewById(R.id.establish_edit_name);
         mconference_edit_container = (EditText) view.findViewById(R.id.establish_edit_container);
-        mconference_edit_type = (EditText) view.findViewById(R.id.establish_edit_type);
-        mconference_edit_place = (EditText) view.findViewById(R.id.establish_edit_place);
+        mconference_edit_type = (Spinner) view.findViewById(R.id.establish_edit_type);
+        mconference_edit_place = (Spinner) view.findViewById(R.id.establish_edit_place);
         mconference_edit_time = (TextView) view.findViewById(R.id.establish_edit_time);
+        checkBox = (CheckBox) view.findViewById(R.id.checkBox);
 
         mCreate = (Button) view.findViewById(R.id.establish_btn_create);
 
@@ -143,16 +144,38 @@ public class EstablishFragment extends Fragment {
 
     public void Create(){
 
+        mconference_edit_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int a = position + 1;
+                typeID = String.valueOf(a);
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) { }
+        });
+        mconference_edit_place.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               int b = position + 1;
+               placeID = String.valueOf(b);
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) { }
+        });
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    is_open = true;
+                }else is_open = false;
+            }
+        });
         final String name = mconference_edit_name.getText().toString();
         final String content = mconference_edit_container.getText().toString();
-        final String type = mconference_edit_type.getText().toString();
-        final String place = mconference_edit_place.getText().toString();
         final String time = mconference_edit_time.getText().toString();
 
 
         //生成Json格式的数据
         Interaction interaction = new Interaction();
-        final JSONObject conferenceData = interaction.ConData(name,content,place,type,time);
+        final JSONObject conferenceData = interaction.ConData(name,content,placeID,typeID,is_open,time);
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -5,19 +5,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.franklin.conference.App.MyApplication;
 import com.example.franklin.conference.R;
-import com.example.franklin.conference.ui.time;
 import com.example.franklin.conference.util.HttpGet;
-
-import org.feezu.liuli.timeselector.TimeSelector;
 
 import static com.google.android.gms.internal.zzagz.runOnUiThread;
 
@@ -41,7 +40,6 @@ public class InformationFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private TextView textView;
-
 
 
     public InformationFragment() {
@@ -87,17 +85,7 @@ public class InformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_information, container, false);
-        Button mbutton = (Button) view.findViewById(R.id.button2);
          textView = (TextView) view.findViewById(R.id.fragment_info_text);
-
-         mbutton.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent =new Intent (MyApplication.getContext(),time.class);
-                 startActivity(intent);
-             }
-         });
-
         return view;
     }
 

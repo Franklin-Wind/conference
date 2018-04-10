@@ -1,5 +1,10 @@
 package com.example.franklin.conference.util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.example.franklin.conference.App.MyApplication;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,6 +27,10 @@ public class HttpGet {
             conn.setConnectTimeout(10000);
             conn.setReadTimeout(10000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            //将token放入头部
+            SharedPreferences pref =  MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+            String token = pref.getString("JWT","");
+            conn.setRequestProperty("Authorization", "JWT "+token);
             //连接服务器
             conn.connect();
             // 取得输入流，并使用Reader读取

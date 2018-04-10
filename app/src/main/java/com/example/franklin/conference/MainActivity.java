@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,14 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.franklin.conference.adapter.SectionsPagerAdapter;
 import com.example.franklin.conference.fragment.AttendFragment;
 import com.example.franklin.conference.fragment.EstablishFragment;
 import com.example.franklin.conference.fragment.InformationFragment;
+import com.example.franklin.conference.ui.ManageCreatedActivity;
+import com.example.franklin.conference.ui.UserSettingsActivity;
 import com.example.franklin.conference.user.Login;
 
 
@@ -119,15 +116,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        if (id == R.id.nav_usersettings) {
+            Intent intent = new Intent(MainActivity.this, UserSettingsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_Managecreate) {
+            Intent intent = new Intent(MainActivity.this, ManageCreatedActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

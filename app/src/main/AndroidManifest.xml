@@ -26,10 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".user.Register"
             android:label="注册账号" />
+        <activity android:name=".ui.UserSettingsActivity" />
+        <activity android:name=".ui.ManageCreatedActivity"></activity>
     </application>
 
 </manifest>

@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.franklin.conference.Data.ConferenceData;
 import com.example.franklin.conference.R;
-import com.example.franklin.conference.ui.meeting;
 
 import java.util.List;
 
@@ -19,25 +19,25 @@ import java.util.List;
  * Created by Franklin on 2018/3/31.
  */
 
-public class meetingAdapter extends RecyclerView.Adapter<meetingAdapter.ViewHolder> {
+public class conferenceAdapter extends RecyclerView.Adapter<conferenceAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<meeting> mymeetinglist;
+    private List<ConferenceData.Results> myconferencelist;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
-        ImageView meetingImage;
-        TextView meetingName;
+        ImageView conferenceImage;
+        TextView conferenceName;
 
         public ViewHolder (View view){
             super(view);
             cardView = (CardView)view;
-            meetingImage = (ImageView) view.findViewById(R.id.meeting_image);
-            meetingName = (TextView) view.findViewById(R.id.meeting_name);
+            conferenceImage = (ImageView) view.findViewById(R.id.meeting_image);
+            conferenceName = (TextView) view.findViewById(R.id.meeting_name);
         }
     }
-    public meetingAdapter(List<meeting> meetingList){
-        mymeetinglist = meetingList;
+    public conferenceAdapter(List<ConferenceData.Results> meetingList){
+        myconferencelist = meetingList;
     }
 
     @Override
@@ -51,13 +51,14 @@ public class meetingAdapter extends RecyclerView.Adapter<meetingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        meeting meet = mymeetinglist.get(position);
-        holder.meetingName.setText(meet.getName());
-        Glide.with(mContext).load(meet.getImagID()).into(holder.meetingImage);
+        ConferenceData.Results conf = myconferencelist.get(position);
+        holder.conferenceName.setText(conf.name);
+        Glide.with(mContext).load(conf.imge).into(holder.conferenceImage);
 
     }
     @Override
     public int getItemCount(){
-        return mymeetinglist.size();
+        return myconferencelist.size();
     }
 }
+
